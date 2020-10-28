@@ -43,6 +43,7 @@ const Dashboard: React.FC = () => {
 
       setFoods([...foods, response.data]);
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
   }
@@ -63,7 +64,9 @@ const Dashboard: React.FC = () => {
   }
 
   async function handleDeleteFood(id: number): Promise<void> {
-    // TODO DELETE A FOOD PLATE FROM THE API
+    await api.delete(`/foods/${id}`);
+    const updatedList = foods.filter(food => food.id !== id);
+    setFoods(updatedList);
   }
 
   function toggleModal(): void {
