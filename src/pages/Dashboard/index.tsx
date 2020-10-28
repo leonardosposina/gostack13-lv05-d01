@@ -38,7 +38,10 @@ const Dashboard: React.FC = () => {
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
     try {
-      // TODO ADD A NEW FOOD PLATE TO THE API
+      const newAvailableFood = Object.assign(food, { available: true });
+      const response = await api.post('/foods', newAvailableFood);
+
+      setFoods([...foods, response.data]);
     } catch (err) {
       console.log(err);
     }
